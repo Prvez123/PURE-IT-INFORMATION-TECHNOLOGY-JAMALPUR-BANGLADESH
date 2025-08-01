@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pure Information Engineering Training Institute</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Roboto', sans-serif;
+    }
+    body {
+      background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+      color: #333;
+      padding: 20px;
+    }
+    header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 50px 20px;
+      background: linear-gradient(to right, #00c6ff, #0072ff);
+      color: white;
+      border-radius: 12px;
+      margin-bottom: 40px;
+      animation: fadeIn 2s ease;
+    }
+    header .logo-title {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 10px;
+    }
+    .logo-title img {
+  width: 130px;
+  height: 130px;
+  max-height: 130px;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  animation: popIn 0.8s ease forwards;
+}
+    header img {
+      height: 50px;
+      border-radius: 8px;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    header h1 {
+      font-size: 2.5rem;
+      margin: 0;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 40px;
+    }
+    nav button {
+      background: linear-gradient(45deg, #ff416c, #ff4b2b);
+      border: none;
+      padding: 12px 24px;
+      border-radius: 30px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+    nav button:hover {
+      transform: scale(1.1);
+      background: linear-gradient(45deg, #00b09b, #96c93d);
+    }
+    .section {
+      display: none;
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      animation: fadeIn 1.5s ease;
+    }
+    .section.active {
+      display: block;
+    }
+    .section h2 {
+      color: #0400ff;
+      margin-bottom: 15px;
+    }
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      font-size: 0.9rem;
+      color: #666;
+    }
+    .course-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.course-btn {
+  width: 90%;
+  max-width: 400px;
+  padding: 15px 25px;
+  border: none;
+  border-radius: 30px;
+  background: linear-gradient(135deg, #ff6a00, #ee0979);
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.4s ease;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.course-btn:hover {
+  transform: translateY(-3px) scale(1.03);
+  background: linear-gradient(135deg, #36d1dc, #5b86e5);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+}
+
+.details-box {
+  max-width: 600px;
+  margin: 30px auto 0;
+  padding: 20px;
+  background: #ffffff;
+  border-left: 5px solid #00bcd4;
+  border-radius: 10px;
+  display: none;
+  text-align: left;
+  animation: fadeIn 0.5s ease;
+}
+
+.details-box h3 {
+  margin-bottom: 10px;
+  color: #333;
+  font-size: 24px;
+}
+
+.details-box p {
+  color: #555;
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+.hidden {
+  display: none;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+/* Popup Modal Style */
+#course-details {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+#course-details .modal-content {
+  background-color: #0066ff;
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 12px;
+  width: 80%;
+  max-width: 500px;
+  position: relative;
+  animation: fadeIn 0.3s ease-in-out;
+  text-align: left;
+}
+
+#course-details .close {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 28px;
+  color: #ff4444;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+/* Modal Overlay */
+#course-details {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(circle at center, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9));
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Modal Box */
+#course-details .modal-content {
+  background: linear-gradient(135deg, #81eea2, #f18a8a);
+  margin: 10% auto;
+  padding: 30px;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 550px;
+  position: relative;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+  animation: scaleIn 0.3s ease-in-out;
+  font-family: 'Segoe UI', sans-serif;
+  color: #222;
+  text-align: left;
+  border: 4px solid #00c6ff;
+}
+
+/* Close Button */
+#course-details .close {
+  position: absolute;
+  top: 12px;
+  right: 20px;
+  font-size: 30px;
+  color: #ff3b3b;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+#course-details .close:hover {
+  color: #ff0000;
+  transform: rotate(90deg);
+}
+
+/* Title and Description */
+#course-details h3 {
+  margin-top: 0;
+  font-size: 26px;
+  color: #ff9900;
+  background: linear-gradient(90deg, #0026ff, #e100ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 15px;
+}
+
+#course-details p {
+  font-size: 17px;
+  line-height: 1.8;
+  color: #444;
+  background-color: #b7ffd2;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+/* ভর্তি বাটনগুলো জন্য স্টাইল */
+.admission-buttons button {
+  background: linear-gradient(45deg, #36d1dc, #5b86e5);
+  color: white;
+  padding: 14px 28px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(54, 209, 220, 0.5);
+  user-select: none;
+  margin: 0 10px 15px 10px;
+  min-width: 180px;
+  text-align: center;
+  display: inline-block;
+}
+
+/* হোভার ইফেক্ট */
+.admission-buttons button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(45deg, #11998e, #38ef7d);
+  box-shadow: 0 6px 18px rgba(56, 239, 125, 0.7);
+}
+
+/* ফোকাস ইফেক্ট (কীবোর্ড ইউজারদের জন্য) */
+.admission-buttons button:focus {
+  outline: none;
+  box-shadow: 0 0 12px 3px rgba(17, 153, 142, 0.8);
+  transform: scale(1.05);
+}
+/* ফরম কন্টেইনার */
+#admissionForm {
+  background: #ffffff;
+  padding: 30px 25px;
+  max-width: 500px;
+  margin: 0 auto;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  transition: box-shadow 0.3s ease;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* ফরম কন্টেইনার হোভার এফেক্ট */
+#admissionForm:hover {
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+}
+
+/* লেবেল স্টাইল */
+#admissionForm label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #0072ff;
+  font-size: 1rem;
+  user-select: none;
+}
+
+/* ইনপুট, সিলেক্ট, টেক্সটএরিয়া স্টাইল */
+#admissionForm input,
+#admissionForm select,
+#admissionForm textarea {
+  width: 100%;
+  max-width: 450px;
+  padding: 12px 16px;
+  margin-bottom: 18px;
+  border: 2px solid #ccc;
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  font-family: 'Roboto', sans-serif;
+  box-sizing: border-box;
+  resize: vertical;
+  background: #f9faff;
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+}
+
+/* ফোকাস স্টেট */
+#admissionForm input:focus,
+#admissionForm select:focus,
+#admissionForm textarea:focus {
+  border-color: #0072ff;
+  box-shadow: 0 0 10px rgba(0, 114, 255, 0.4);
+  outline: none;
+  background: #fff;
+}
+
+/* Placeholder স্টাইল */
+#admissionForm input::placeholder,
+#admissionForm textarea::placeholder {
+  color: #bbb;
+  font-style: italic;
+}
+
+/* ফোন নম্বর ইনপুটের জন্য স্পেশাল */
+#admissionForm input[type="tel"] {
+  letter-spacing: 2px;
+}
+
+/* সাবমিট বাটন */
+#admissionForm button[type="submit"] {
+  background: linear-gradient(45deg, #36d1dc, #5b86e5);
+  color: white;
+  padding: 14px 32px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 1.15rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 18px rgba(54, 209, 220, 0.6);
+  user-select: none;
+  width: max-content;
+  display: block;
+  margin-top: 10px;
+    
+}
+
+/* সাবমিট বাটন হোভার ইফেক্ট */
+#admissionForm button[type="submit"]:hover {
+  transform: scale(1.07);
+  background: linear-gradient(45deg, #11998e, #38ef7d);
+  box-shadow: 0 8px 22px rgba(56, 239, 125, 0.8);
+}
+
+/* ফোন নম্বর, ইমেইল ইনপুটের মাঝে একটু স্পেসিং */
+#admissionForm input,
+#admissionForm select,
+#admissionForm textarea,
+#admissionForm button {
+  margin-top: 8px;
+}
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo-title">
+      <img src="1735557982.jpeg"/>
+      <h1>Pure Information Engineering Training Institute</h1>
+    </div>
+    <p>শিক্ষা, দক্ষতা ও প্রযুক্তির সমন্বয়ে ভবিষ্যতের জন্য প্রস্তুত হোন</p>
+  </header>
+
+  <nav>
+  <!-- তোমার আগের বাটনগুলো -->
+  <button onclick="showSection('about')">আমাদের সম্পর্কে</button>
+  <button onclick="showSection('courses')">কোর্স সমূহ</button>
+  <button onclick="showSection('contact')">যোগাযোগ</button>
+<button onclick="window.open('https://orange-cassey-90.tiiny.site/')">🎓 সাটিফিকেট দেখুন</button>
+<button onclick="window.open('https://lavender-cathie-14.tiiny.site/')">🎓 এডমিট কার্ড দেখুন</button>
+<button onclick="window.open('')">🎓 খুব সিগ্রয় আসবে</button>
+</nav>
+
+<section id="result-embed" class="section">
+  <h2>🎓 সাটিফিকেট দেখুন</h2>
+  <iframe src="https://orange-cassey-90.tiiny.site/" style="width: 100%; height: 600px; border: none; border-radius: 12px;"></iframe>
+</section>
+<section id="result-embed" class="section">
+  <h2>🎓 এডমিট কার্ড দেখুন</h2>
+  <iframe src="https://orange-cassey-90.tiiny.site/" style="width: 100%; height: 600px; border: none; border-radius: 12px;"></iframe>
+</section>
+<section id="result-embed" class="section">
+  <h2>🎓 শিগ্রয় আসবে</h2>
+  <iframe src="" style="width: 100%; height: 600px; border: none; border-radius: 12px;"></iframe>
+</section>
+
+  <section id="about" class="section active">
+    <h2>আমাদের সম্পর্কে</h2>
+    <p>Pure Information Engineering Training Institute একটি আধুনিক আইটি প্রশিক্ষণ কেন্দ্র যা শিক্ষার্থীদের তথ্য প্রযুক্তিতে দক্ষ করে গড়ে তোলে।</p>
+  </section>
+
+  <section id="courses" class="section">
+  <h2>কোর্স সমূহ</h2>
+  <div class="course-buttons">
+    <button class="course-btn" onclick="showDetails('web')">ওয়েব ডিজাইন ও ডেভেলপমেন্ট</button>
+    <button class="course-btn" onclick="showDetails('graphic')">গ্রাফিক ডিজাইন</button>
+    <button class="course-btn" onclick="showDetails('marketing')">ডিজিটাল মার্কেটিং</button>
+    <button class="course-btn" onclick="showDetails('office')">অফিস অ্যাপ্লিকেশন ও বেসিক কম্পিউটার</button>
+  </div>
+
+  <div id="course-details" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <h3 id="course-title"></h3>
+    <p id="course-description"></p>
+  </div>
+</div>
+</script>
+<script>
+const courseInfo = {
+  web: {
+    title: "ওয়েব ডিজাইন ও ডেভেলপমেন্ট",
+    description: "এই কোর্সে HTML, CSS, JavaScript, Bootstrap, এবং Responsive Web Design শেখানো হয়। পরবর্তীতে আপনি WordPress ও Basic Web Hosting সম্পর্কে জানতে পারবেন।"
+  },
+  graphic: {
+    title: "গ্রাফিক ডিজাইন",
+    description: "এই কোর্সে Adobe Photoshop, Illustrator, এবং Canva ব্যবহারের মাধ্যমে লোগো, ব্যানার, ভিজিটিং কার্ড, সোশ্যাল মিডিয়া পোস্ট ডিজাইন শেখানো হয়।"
+  },
+  marketing: {
+    title: "ডিজিটাল মার্কেটিং",
+    description: "Facebook, YouTube, Google Ads, SEO, এবং Content Marketing নিয়ে বিস্তারিতভাবে শেখানো হয়। ফ্রিল্যান্সিং এর জন্য প্র্যাক্টিকাল গাইডলাইন দেয়া হয়।"
+  },
+  office: {
+    title: "অফিস অ্যাপ্লিকেশন ও বেসিক কম্পিউটার",
+    description: "Microsoft Word, Excel, PowerPoint, ইমেইল, বাংলা টাইপিং, এবং ইন্টারনেট ব্যবহারের কৌশল শেখানো হয়।"
+  }
+};
+
+function showDetails(courseKey) {
+  const data = courseInfo[courseKey];
+  document.getElementById("course-title").textContent = data.title;
+  document.getElementById("course-description").textContent = data.description;
+  document.getElementById("course-details").style.display = "block";
+}
+
+function closeModal() {
+  document.getElementById("course-details").style.display = "none";
+}
+
+// ESC চাপলে মোডাল বন্ধ হবে
+window.addEventListener('keydown', function(event) {
+  if (event.key === 'Escape') {
+    closeModal();
+  }
+});
+</script>
+</section>
+
+  <section id="contact" class="section">
+  <h2>যোগাযোগ</h2>
+  <p>ঠিকানা: ডিগ্রীরচর বোর্ড বাজার, ইসলামপুর, জামালপুর</p>
+  <p>ফোন: <a href="tel:+8801976-986304">+8801976-986304</a></p>
+  <p>ইমেইল: <a href="https://mail.google.com/mail/?view=cm&fs=1&to=islamparvez670@hmail.com&su=যোগাযোগ&body=হ্যালো, আমি আপনার সাথে যোগাযোগ করতে চাই।" target="_blank">
+  islamparvez670@hmail.com</a></p>
+</section>
+
+<section id="admission" class="section">
+  <h2>ভর্তি</h2>
+
+<div class="admission-buttons">
+  <button onclick="toggleSubSection('guideline')">📋 ভর্তি নির্দেশনা</button>
+  <button onclick="toggleSubSection('fees')">💰 কোর্স ফি</button>
+  <button onclick="toggleSubSection('form')">📝 ভর্তি ফর্ম</button>
+</div>
+
+  <div id="guideline" class="sub-section" style="display: none;">
+    <h3>📋 ভর্তি নির্দেশনা</h3>
+    <ul>
+      <li>ন্যূনতম এসএসসি পাস হতে হবে</li>
+      <li>জাতীয় পরিচয়পত্র/জন্ম সনদ প্রয়োজন</li>
+      <li>এক কপি পাসপোর্ট সাইজ ছবি</li>
+      <li>সরাসরি অফিসে এসে ফর্ম পূরণ করা যাবে</li>
+    </ul>
+  </div>
+
+  <div id="fees" class="sub-section" style="display: none;">
+    <h3>💰 কোর্স ফি</h3>
+    <ul>
+      <li>ওয়েব ডিজাইন: ৮,০০০ টাকা</li>
+      <li>গ্রাফিক ডিজাইন: ৭,০০০ টাকা</li>
+      <li>ডিজিটাল মার্কেটিং: ৬,০০০ টাকা</li>
+      <li>কম্পিউটার বেসিক: ৩,০০০ টাকা</li>
+    </ul>
+  </div>
+
+  <div id="form" class="sub-section" style="display: none;">
+    <h3>📝 ভর্তি ফর্ম</h3>
+    <form id="admissionForm">
+      <label for="name">আপনার নাম:</label>
+      <input type="text" id="name" name="name" placeholder="পূর্ণ নাম লিখুন" required>
+
+      <label for="email">ইমেইল:</label>
+      <input type="email" id="email" name="email" placeholder="example@gmail.com" required>
+
+      <label for="phone">ফোন নম্বর:</label>
+      <input type="tel" id="phone" name="phone" placeholder="01XXXXXXXXX" required>
+
+      <label for="course">কোর্স নির্বাচন করুন:</label>
+      <select id="course" name="course" required>
+        <option value="">-- কোর্স নির্বাচন করুন --</option>
+        <option value="web">ওয়েব ডিজাইন</option>
+        <option value="graphics">গ্রাফিক ডিজাইন</option>
+        <option value="marketing">ডিজিটাল মার্কেটিং</option>
+        <option value="basic">কম্পিউটার বেসিক</option>
+      </select>
+
+      <label for="message">অতিরিক্ত মন্তব্য (যদি থাকে):</label>
+      <textarea id="message" name="message" rows="4" placeholder="আপনার মন্তব্য"></textarea>
+
+      <button type="submit">✅ সাবমিট করুন</button>
+    </form>
+  </div>
+<script>
+function toggleSubSection(id) {
+  const subs = document.querySelectorAll('.sub-section');
+  subs.forEach(sub => {
+    if (sub.id === id) {
+      sub.style.display = sub.style.display === 'block' ? 'none' : 'block';
+    } else {
+      sub.style.display = 'none';
+    }
+  });
+  }
+  </script>
+</section>
+
+  <footer>
+    &copy; ২০২৫ Pure Information Engineering Training Institute. সর্বস্বত্ব সংরক্ষিত।
+  </footer>
+
+  <script>
+    function showSection(id) {
+      const sections = document.querySelectorAll('.section');
+      sections.forEach(section => {
+        section.classList.remove('active');
+      });
+      document.getElementById(id).classList.add('active');
+    }
+  </script>
+</body>
+</html>
